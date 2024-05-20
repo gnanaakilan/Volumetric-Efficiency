@@ -56,7 +56,7 @@
               <a class="nav-link" href="precaution.html">Precaution</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link  active"  aria-current="page" href="calculations.html">Calculations</a>
+              <a class="nav-link  active"  aria-current="page" href="calculations.html?v=2">Calculations</a>
             </li>
           </ul>
         </div>
@@ -180,7 +180,7 @@
         function updatep1a(){
             let p1g = document.querySelector("#p1g").value
             if(p1g == "") document.querySelector("#p1a").value = ""
-            else document.querySelector("#p1a").value =  1.01325 + (Number(p1g) * 0.9806)
+            else document.querySelector("#p1a").value =  101325 + (Number(p1g) * 98066.5)
         }
 
         function calculate(){
