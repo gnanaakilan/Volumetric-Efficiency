@@ -8,7 +8,6 @@ let constants = {
     cd:0.62
 }
 
-
 // check in localstorage
 let localconst = localStorage.getItem("cvalues")
 if(localconst){
