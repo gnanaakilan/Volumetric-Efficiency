@@ -58,7 +58,7 @@ let dasss_constants = {
     dlp : 290,
     L :300,
     bar:8,
-    n:500,
+    N:500,
     c:0.03,
     pa : 1,
     ta:15,
