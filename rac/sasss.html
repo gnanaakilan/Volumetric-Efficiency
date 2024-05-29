@@ -110,7 +110,7 @@
                   <tr>
                     <td>Compressor Speed (N) in rpm</td>
                     <td>
-                      <input type="number" class="form-control" id="n" />
+                      <input type="number" class="form-control" id="N" />
                     </td>
                   </tr>
                   <tr>
@@ -165,14 +165,14 @@
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
-    <script src="./app.js"></script>
+    <script src="./app.js?v=1"></script>
     <script>
       updateconstvalue(sasss_constants);
       function updateconstvalue(v) {
         document.querySelector("#dlp").value = v.dlp
         document.querySelector("#L").value = v.L
         document.querySelector("#bar").value = v.bar
-        document.querySelector("#n").value = v.n
+        document.querySelector("#N").value = v.N
         document.querySelector("#f").value = v.f
         document.querySelector("#hp").value = v.hp
         document.querySelector("#l").value = v.l

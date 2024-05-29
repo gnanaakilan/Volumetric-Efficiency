@@ -4,7 +4,7 @@ let sasss_constants = {
     dlp : 55,
     L :65,
     bar:8,
-    n:720,
+    N:720,
     f:50,
     hp:1,
     l : 50
@@ -16,7 +16,7 @@ function update_sasss_constants() {
       dlp : document.querySelector("#dlp").value,
       L : document.querySelector("#L").value,
       bar : document.querySelector("#bar").value,
-      n : document.querySelector("#n").value,
+      N : document.querySelector("#N").value,
       f : document.querySelector("#f").value,
       hp : document.querySelector("#hp").value,
       l : document.querySelector("#l").value

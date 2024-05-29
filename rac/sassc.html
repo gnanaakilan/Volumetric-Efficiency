@@ -182,7 +182,7 @@
                   <tr>
                     <td>Clearance ratio(C)</td>
                     <td>
-                      <input type="number" class="form-control" id="c" />
+                      <input type="number" class="form-control" id="c" onblur="this.value = this.value/100" />
                     </td>
                   </tr>
                   <tr>
@@ -308,10 +308,11 @@
           ((v1 - v4) * (Math.pow(p2 / p1, (n - 1) / n) - 1));
         let nv = (1 + c - c * Math.pow(p2 / p1, 1 / n)) * 100;
 
-        document.querySelector("#v1").innerHTML = v1.toFixed(6);
-        document.querySelector("#vs").innerHTML = vs.toFixed(6);
-        document.querySelector("#v3").innerHTML = v3.toFixed(6);
-        document.querySelector("#v4").innerHTML = v4.toFixed(6);
+        debugger
+        document.querySelector("#v1").innerHTML = v1.toFixed(8);
+        document.querySelector("#vs").innerHTML = vs.toFixed(8);
+        document.querySelector("#v3").innerHTML = v3.toFixed(10);
+        document.querySelector("#v4").innerHTML = v4.toFixed(10);
         document.querySelector("#t2").innerHTML = t2.toFixed(6);
         document.querySelector("#w").innerHTML = w.toFixed(6);
         document.querySelector("#nv").innerHTML = nv.toFixed(6);
