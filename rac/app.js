@@ -73,11 +73,42 @@ function update_dasss_constants() {
       dlp : document.querySelector("#dlp").value,
       L : document.querySelector("#L").value,
       bar : document.querySelector("#bar").value,
-      n : document.querySelector("#n").value,
+      N : document.querySelector("#N").value,
       f : document.querySelector("#f").value,
       hp : document.querySelector("#hp").value,
       l : document.querySelector("#l").value
     };
     localStorage.setItem("dasss_constants", JSON.stringify(cvalues))
+    alert("saved")
+}
+
+
+
+// double acting multi  stage 
+let damss_constants = {
+    dlp : 290,
+    L :300,
+    bar:8,
+    N:500,
+    c:0.03,
+    pa : 1,
+    ta:15,
+    f:50,
+    hp:1,
+    l : 50
+}
+if(localStorage.getItem("damss_constants")) damss_constants = JSON.parse(localStorage.getItem("damss_constants"))
+
+function update_damss_constants() {
+    let cvalues = {
+      dlp : document.querySelector("#dlp").value,
+      L : document.querySelector("#L").value,
+      bar : document.querySelector("#bar").value,
+      n : document.querySelector("#n").value,
+      f : document.querySelector("#f").value,
+      hp : document.querySelector("#hp").value,
+      l : document.querySelector("#l").value
+    };
+    localStorage.setItem("damss_constants", JSON.stringify(cvalues))
     alert("saved")
 }
