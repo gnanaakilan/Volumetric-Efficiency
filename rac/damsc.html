@@ -63,9 +63,7 @@
                   <a href="./sasss.html" class="dropdown-item">Specification</a>
                 </li>
                 <li>
-                  <a href="./sassc.html" class="dropdown-item "
-                    >Calculation</a
-                  >
+                  <a href="./sassc.html" class="dropdown-item">Calculation</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <span
@@ -114,7 +112,7 @@
                   <a href="./dasss.html" class="dropdown-item">Specification</a>
                 </li>
                 <li>
-                  <a href="./dassc.html" class="dropdown-item active">Calculation</a>
+                  <a href="./dassc.html" class="dropdown-item">Calculation</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <span
@@ -127,7 +125,9 @@
                   <a href="./damss.html" class="dropdown-item">Specification</a>
                 </li>
                 <li>
-                  <a href="./damsc.html" class="dropdown-item">Calculation</a>
+                  <a href="./damsc.html" class="dropdown-item active"
+                    >Calculation</a
+                  >
                 </li>
               </ul>
             </li>
@@ -137,7 +137,9 @@
     </nav>
 
     <main class="container pt-3">
-      <div class="fs-4 text-center my-3">Double Acting Single Stage Calculation</div>
+      <div class="fs-4 text-center my-3">
+        Double Acting Single Stage Calculation
+      </div>
       <div class="row">
         <div class="col-md-6">
           <div class="container">
@@ -145,6 +147,22 @@
             <div class="p-3 border">
               <table class="table table-borderless">
                 <tbody>
+                  <tr>
+                    <td>
+                      Ambient Pressure (bar)
+                    </td>
+                    <td style="width: 30%;">
+                      <input type="number" class="form-control" id="pa" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Ambient temperature (0<sub>c</sub>)
+                    </td>
+                    <td style="width: 30%;">
+                      <input type="number" class="form-control" id="ta" />
+                    </td>
+                  </tr>
                   <tr>
                     <td>
                       Inlet Pressure(bar)
@@ -182,7 +200,12 @@
                   <tr>
                     <td>Clearance ratio(C)</td>
                     <td>
-                      <input type="number" class="form-control" id="c" onblur="this.value = this.value/100" />
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="c"
+                        onblur="this.value = this.value/100"
+                      />
                     </td>
                   </tr>
                   <tr>
@@ -259,10 +282,11 @@
     <script src="./app.js?v=1"></script>
     <script>
       (function () {
-        document.querySelector("#L").value = dasss_constants.L;
-        document.querySelector("#dlp").value = dasss_constants.dlp;
-        document.querySelector("#n").value = dasss_constants.n;
-        document.querySelector("#c").value = dasss_constants.c;
+        document.querySelector("#pa").value = damss_constants.pa
+        document.querySelector("#ta").value = damss_constants.ta
+        document.querySelector("#L").value = damss_constants.L
+        document.querySelector("#dlp").value = damss_constants.dlp
+        document.querySelector("#c").value = damss_constants.c
       })();
 
       // function updatep1a(){
@@ -279,6 +303,8 @@
         let dlp = document.querySelector("#dlp").value;
         let c = document.querySelector("#c").value;
         let n = document.querySelector("#n").value;
+        let pa = document.querySelector("#pa").value
+        let ta = document.querySelector("#ta").value
 
         if (
           p1 == "" ||
@@ -287,7 +313,9 @@
           L == "" ||
           dlp == "" ||
           c == "" ||
-          n == ""
+          n == "" ||
+          pa == "" ||
+          ta == ""
         ) {
           alert("Please enter all value");
           return;
@@ -300,19 +328,29 @@
         dlp = Number(dlp);
         c = Number(c) / 100;
         n = Number(n);
+        pa = Number(pa);
+        ta = Number(ta);
 
-        let vs = (Math.PI / 4) * Math.sqrt(dlp) * L * (2 * dasss_constants.N) * Math.pow(10, -9);
+        let vs =
+          (Math.PI / 4) *
+          Math.sqrt(dlp) *
+          L *
+          Math.pow(10, -9);
         let v3 = c * vs;
         let v1 = vs + v3;
-        let v4 = v3 * Math.pow((p2 / p1), 1 / n);
-        let t2 = t1 * Math.pow((p2 / p1), (n - 1) / n) + 273;
+        let v4 = v3 * Math.pow((p2 / p1), (1 / n));
+        let t2 = (t1 * Math.pow((p2 / p1), ((n - 1) / n))) + 273;
         let w =
           (n / (n - 1)) *
           p1 *
           Math.pow(10, 5) *
-          (((v1 - v4) * (Math.pow(p2 / p1, (n - 1) / n) - 1)));
-        let nv = (1 + c - c * Math.pow((p2 / p1), (1 / n))) * 100 * (p1/dasss_constants.pa) * ((dasss_constants.ta+273)/(t1+273));
-        let ip = w / 60
+          ((v1 - v4) * (Math.pow((p2 / p1), (n - 1) / n) - 1));
+        let nv =
+          (1 + c - c * Math.pow((p2 / p1), (1 / n))) *
+          100 *
+          (p1 / damss_constants.pa) *
+          ((damss_constants.ta + 273) / (t1 + 273));
+        let ip = (w * damss_constants.N) / 60000;
 
         document.querySelector("#v1").innerHTML = v1.toFixed(6);
         document.querySelector("#vs").innerHTML = vs.toFixed(6);

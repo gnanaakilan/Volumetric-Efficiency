@@ -43,11 +43,11 @@
               </a>
               <ul class="dropdown-menu">
                 <span class="ps-3 text-body-secondary" style="font-size: small;"> Single Stage </span>
-                <li><a href="./sasss.html" class="dropdown-item">Specification</a></li>
+                <li><a href="./sasss.html" class="dropdown-item ">Specification</a></li>
                 <li><a href="./sassc.html" class="dropdown-item">Calculation</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <span class="ps-3 text-body-secondary" style="font-size: small;"> Double Stage </span>
-                <li><a href="./sadss.html" class="dropdown-item active">Specification</a></li>
+                <li><a href="./sadss.html" class="dropdown-item">Specification</a></li>
                 <li><a href="./sadsc.html" class="dropdown-item">Calculation</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <span class="ps-3 text-body-secondary" style="font-size: small;"> Multi Stage </span>
@@ -61,11 +61,11 @@
               </a>
               <ul class="dropdown-menu">
                 <span class="ps-3 text-body-secondary" style="font-size: small;"> Single Stage </span>
-                <li><a href="./dasss.html" class="dropdown-item">Specification</a></li>
+                <li><a href="./dasss.html" class="dropdown-item ">Specification</a></li>
                 <li><a href="./dassc.html" class="dropdown-item">Calculation</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <span class="ps-3 text-body-secondary" style="font-size: small;"> Multi Stage </span>
-                <li><a href="./damss.html" class="dropdown-item">Specification</a></li>
+                <li><a href="./damss.html" class="dropdown-item active">Specification</a></li>
                 <li><a href="./damsc.html" class="dropdown-item">Calculation</a></li>
               </ul>
             </li>
@@ -76,7 +76,7 @@
     </nav>
 
     <main class="container pt-3">
-      <div class="fs-4 text-center my-3">Single Acting Double Stage Specification</div>
+      <div class="fs-4 text-center my-3">Double Acting Multi Stage Specification</div>
       <div class="row">
         <div class="col-md-6">
           <div class="container">
@@ -93,23 +93,48 @@
                     </td>
                   </tr>
                   <tr>
+                    <td>Stroke (mm)</td> 
+                    <td>
+                      <input type="number" class="form-control" id="L" />
+                    </td>
+                  </tr>
+                  <tr>
                     <td >
-                      Diameter of HP Cylinder (D<sub>HP</sub>) in mm
+                      Outlet maximum pressure (bar)
                     </td>
-                    <td style="width:30%">
-                      <input type="number" class="form-control" id="dhp" />
+                    <td>
+                      <input type="number" class="form-control" id="bar" />
                     </td>
                   </tr>
                   <tr>
-                    <td>Stroke Length (L<sub>1</sub>) in mm</td> 
+                    <td>Ambient Pressure</td>
                     <td>
-                      <input type="number" class="form-control" id="l1" />
+                      <input type="number" class="form-control" id="pa"  />
                     </td>
                   </tr>
                   <tr>
-                    <td>Compressor Speed (N) in rpm</td>
+                    <td>Ambient temperature</td>
                     <td>
-                      <input type="number" class="form-control" id="n" />
+                      <input type="number" class="form-control" id="ta"  />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Compressor Speed (rpm)</td>
+                    <td>
+                      <input type="number" class="form-control" id="N" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Clearance ratio</td>
+                    <td>
+                      <input type="number" class="form-control" id="c" onblur="this.value = this.value/100" />
+                    </td>
+                  </tr>
+                  
+                  <tr>
+                    <td>Frequency (Hz)</td>
+                    <td>
+                      <input type="number" class="form-control" id="f" />
                     </td>
                   </tr>
                   <tr>
@@ -119,22 +144,16 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Orifice diameter (d)</td>
+                    <td>Tank Capacity(L)</td>
                     <td>
-                      <input type="number" class="form-control" id="d" />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Coefficient of discharge (C<sub>d</sub>)</td>
-                    <td>
-                      <input type="number" class="form-control" id="cd" />
+                      <input type="number" class="form-control" id="l" />
                     </td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
                     <td colspan="2" class="text-center">
-                      <button class="btn btn-primary" onclick="update_sadss_constants()">
+                      <button class="btn btn-primary" onclick="update_sasss_constants()">
                         update
                       </button>
                     </td>
@@ -149,9 +168,7 @@
             <div class="p-2 bg-secondary-subtle border">Note :</div>
             <div class="p-3 border">
               <ul>
-                <li>Compressor: Two stage with intercooler</li>
-                <li>Air intake Measurement: M/S Tank with Orifice-meter and Manometer</li>
-                <li>Bourdon Tube Pressure gauges to measure the pressures</li>
+                <li>Compressor: Multi stage with water cooled</li>
                 <li>Three Phase energy meter.</li>
                 <li>Multi-channel temperature Indicator to measure various Temperatures.</li>
                 <li>Pressure relief valves.</li>
@@ -168,15 +185,18 @@
     ></script>
     <script src="./app.js"></script>
     <script>
-      updateconstvalue(sadss_constants);
+      updateconstvalue(damss_constants);
       function updateconstvalue(v) {
         document.querySelector("#dlp").value = v.dlp
-        document.querySelector("#dhp").value = v.dhp
-        document.querySelector("#l1").value = v.l1
-        document.querySelector("#n").value = v.n
+        document.querySelector("#L").value = v.L
+        document.querySelector("#bar").value = v.bar
+        document.querySelector("#N").value = v.N
+        document.querySelector("#c").value = v.c
+        document.querySelector("#pa").value = v.pa
+        document.querySelector("#ta").value = v.ta
+        document.querySelector("#f").value = v.f
         document.querySelector("#hp").value = v.hp
-        document.querySelector("#d").value = v.d
-        document.querySelector("#cd").value = v.cd
+        document.querySelector("#l").value = v.l
       }
     </script>
   </body>

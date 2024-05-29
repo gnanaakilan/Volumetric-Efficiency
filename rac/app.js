@@ -55,13 +55,13 @@ function update_sasss_constants() {
 
 // double acting single  stage 
 let dasss_constants = {
-    dlp : 290,
-    L :300,
-    bar:8,
-    N:500,
-    c:0.03,
+    dlp : 263,
+    L :316,
+    bar:16,
     pa : 1,
-    ta:15,
+    ta:27,
+    N:320,
+    c:0.04,
     f:50,
     hp:1,
     l : 50
@@ -73,8 +73,11 @@ function update_dasss_constants() {
       dlp : document.querySelector("#dlp").value,
       L : document.querySelector("#L").value,
       bar : document.querySelector("#bar").value,
+      pa : document.querySelector("#pa").value,
+      ta : document.querySelector("#ta").value,
       N : document.querySelector("#N").value,
       f : document.querySelector("#f").value,
+      c : document.querySelector("#c").value,
       hp : document.querySelector("#hp").value,
       l : document.querySelector("#l").value
     };
