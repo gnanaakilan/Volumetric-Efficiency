@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Volumetric Efficiency</title>
+    <title>Single Acting Double stage Calculation</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -63,7 +63,7 @@
                   <a href="./sasss.html" class="dropdown-item">Specification</a>
                 </li>
                 <li>
-                  <a href="./sassc.html" class="dropdown-item active"
+                  <a href="./sassc.html" class="dropdown-item "
                     >Calculation</a
                   >
                 </li>
@@ -75,10 +75,10 @@
                   Double Stage
                 </span>
                 <li>
-                  <a href="./sadss.html" class="dropdown-item">Specification</a>
+                  <a href="./sadss.html" class="dropdown-item ">Specification</a>
                 </li>
                 <li>
-                  <a href="./sadsc.html" class="dropdown-item">Calculation</a>
+                  <a href="./sadsc.html" class="dropdown-item active">Calculation</a>
                 </li>
                 <li><hr class="dropdown-divider" /></li>
                 <span
@@ -137,7 +137,9 @@
     </nav>
 
     <main class="container pt-3">
-      <div class="fs-4 text-center my-3">Single Acting Single Stage Calculation</div>
+
+      <div class="fs-4 text-center my-3">Single Acting Double Stage Calculation</div>
+
       <div class="row">
         <div class="col-md-6">
           <div class="container">
@@ -147,18 +149,26 @@
                 <tbody>
                   <tr>
                     <td>
-                      Inlet Pressure(bar) (P<sub>1</sub>)
+                      Inlet Pressure(Kg/cm<sup>2</sup>) (P<sub>1 gauge</sub>)
                     </td>
                     <td style="width: 30%;">
-                      <input type="number" class="form-control" id="p1" />
+                      <input type="number" class="form-control" id="p1g" onkeyup="updatep1a()" />
                     </td>
                   </tr>
                   <tr>
                     <td>
-                      Outlet Pressure(bar) (P<sub>2</sub>)
+                      P<sub>1 abs</sub>
                     </td>
                     <td style="width: 30%;">
-                      <input type="number" class="form-control" id="p2" />
+                      <input type="number" class="form-control" id="p1a" disabled />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Outlet Pressure(Pa) (P<sub>3</sub>)
+                    </td>
+                    <td style="width: 30%;">
+                      <input type="number" class="form-control" id="p3" />
                     </td>
                   </tr>
                   <tr>
@@ -168,27 +178,33 @@
                     </td>
                   </tr>
                   <tr>
-                    <td>Stroke (L) in mm</td>
-                    <td>
-                      <input type="number" class="form-control" id="L" />
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Diameter(D<sub>LP</sub>) in mm</td>
+                    <td>Bore (mm) (D<sub>LP</sub>)</td>
                     <td>
                       <input type="number" class="form-control" id="dlp" />
                     </td>
                   </tr>
                   <tr>
-                    <td>Clearance ratio(C)</td>
+                    <td>Stroke (mm)(L<sub>1</sub>)</td>
                     <td>
-                      <input type="number" class="form-control" id="c" />
+                      <input type="number" class="form-control" id="l1" />
                     </td>
                   </tr>
                   <tr>
-                    <td>Polytropic ratio(n)</td>
+                    <td>Motor speed/Compressor speed (rpm)</td>
                     <td>
                       <input type="number" class="form-control" id="n" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Manometric head (mm)(h<sub>w</sub>)</td>
+                    <td>
+                      <input type="number" class="form-control" id="hw" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>coefficient of discharge(C<sub>d</sub>)</td>
+                    <td>
+                      <input type="number" class="form-control" id="cd" />
                     </td>
                   </tr>
                 </tbody>
@@ -215,30 +231,31 @@
             <div class="p-3 border">
               <ul>
                 <li class="pb-3">
-                  Suction volume (m<sup>3</sup>) :
-                  <label class="fw-bold" id="v1"></label>
+                  Density of air (Kg/m<sup>3</sup>) :
+                  <label class="fw-bold" id="pa"></label>
                 </li>
                 <li class="pb-3">
-                  Swept volume (m<sup>3</sup>) :
-                  <label class="fw-bold" id="vs"></label>
+                  Air ahead causing the flow of air (m) :
+                  <label class="fw-bold" id="ha"></label>
                 </li>
                 <li class="pb-3">
-                  Clearance volume (m<sup>3</sup>) :
-                  <label class="fw-bold" id="v3"></label>
+                  Area of orifice (m<sub>2</sub>) :
+                  <label class="fw-bold" id="a"></label>
                 </li>
                 <li class="pb-3">
-                  Discharge volume (m<sup>3</sup>) :
-                  <label class="fw-bold" id="v4"></label>
+                  Actual volume of free air delivered (m<sub>3</sub>) :
+                  <label class="fw-bold" id="va"></label>
                 </li>
                 <li class="pb-3">
-                  Outlet temperature (O<sub>c</sub>) :
-                  <label class="fw-bold" id="t2"></label>
+                  mass of air supplied (kg) :
+                  <label class="fw-bold" id="ma"></label>
                 </li>
                 <li class="pb-3">
-                  Work done (j) : <label class="fw-bold" id="w"></label>
+                  Theoretical volume of air delivered (m<sub>3</sub>) :
+                  <label class="fw-bold" id="vth"></label>
                 </li>
                 <li class="pb-3">
-                  Volumetric efficiency n<sub>v</sub> :
+                  Volumetric efficiency :
                   <label class="fw-bold" id="nv"></label>
                 </li>
               </ul>
@@ -254,77 +271,83 @@
     ></script>
     <script src="./app.js"></script>
     <script>
+
       (function () {
-        document.querySelector("#L").value = sasss_constants.L;
-        document.querySelector("#dlp").value = sasss_constants.dlp;
-        document.querySelector("#n").value = sasss_constants.n;
+        document.querySelector("#dlp").value = sadss_constants.dlp
+        document.querySelector("#l1").value = sadss_constants.l1
+        document.querySelector("#n").value = sadss_constants.n
+        document.querySelector("#cd").value = sadss_constants.cd
       })();
 
-      // function updatep1a(){
-      //     let p1g = document.querySelector("#p1g").value
-      //     if(p1g == "") document.querySelector("#p1a").value = ""
-      //     else document.querySelector("#p1a").value =  101325 + (Number(p1g) * 98066.5)
-      // }
+      function updatep1a(){
+          let p1g = document.querySelector("#p1g").value
+          if(p1g == "") document.querySelector("#p1a").value = ""
+          else document.querySelector("#p1a").value =  101325 + (Number(p1g) * 98066.5)
+      }
 
       function calculate() {
-        let p1 = document.querySelector("#p1").value;
-        let p2 = document.querySelector("#p2").value;
-        let t1 = document.querySelector("#t1").value;
-        let L = document.querySelector("#L").value;
-        let dlp = document.querySelector("#dlp").value;
-        let c = document.querySelector("#c").value;
-        let n = document.querySelector("#n").value;
+        let p1g = document.querySelector("#p1g").value
+        let p1a = document.querySelector("#p1a").value
+        let p3 = document.querySelector("#p3").value
+        let t1 = document.querySelector("#t1").value
+        let dlp = document.querySelector("#dlp").value
+        let l1 = document.querySelector("#l1").value
+        let n = document.querySelector("#n").value
+        let hw = document.querySelector("#hw").value
+        let cd = document.querySelector("#cd").value
 
         if (
-          p1 == "" ||
-          p2 == "" ||
+          p1g == "" ||
+          p1a == "" ||
+          p3 == "" ||
           t1 == "" ||
-          L == "" ||
           dlp == "" ||
-          c == "" ||
-          n == ""
+          l1 == "" ||
+          n == "" ||
+          hw == "" ||
+          cd == ""
         ) {
           alert("Please enter all value");
           return;
         }
 
-        p1 = Number(p1);
-        p2 = Number(p2);
-        t1 = Number(t1);
-        L = Number(L);
-        dlp = Number(dlp);
-        c = Number(c) / 100;
-        n = Number(n);
+        p1g = Number(p1g)
+        p1a = Number(p1a)
+        p3 = Number(p3)
+        t1 = Number(t1)
+        dlp = Number(dlp)
+        l1 = Number(l1)
+        n = Number(n)
+        hw = Number(hw)
+        cd = Number(cd)
 
-        let vs = (Math.PI / 4) * Math.sqrt(dlp) * L * Math.pow(10, -9);
-        let v3 = c * vs;
-        let v1 = vs + v3;
-        let v4 = v3 * Math.pow(p2 / p1, 1 / n);
-        let t2 = t1 * Math.pow(p2 / p1, (n - 1) / n) + 273;
-        let w =
-          (n / (n - 1)) *
-          p1 *
-          Math.pow(10, 5) *
-          ((v1 - v4) * (Math.pow(p2 / p1, (n - 1) / n) - 1));
-        let nv = (1 + c - c * Math.pow(p2 / p1, 1 / n)) * 100;
+        let pa = (p1a / (287 * (t1 + 273)))
+        let ha = hw / pa
+        let a = (Math.PI / 4) * Math.pow(sadss_constants.d , 2)  * Math.pow(10, -6)
+        let va = cd * a * Math.sqrt(2 * 9.8 * ha)
+        let ma = pa * va
+        let vlp = (Math.PI / 4) * Math.pow(dlp,2) * l1 * Math.pow(10,-9)
+        let vth = (vlp * n) / 60
+        let nv = (va / vth) * 100
 
-        document.querySelector("#v1").innerHTML = v1.toFixed(6);
-        document.querySelector("#vs").innerHTML = vs.toFixed(6);
-        document.querySelector("#v3").innerHTML = v3.toFixed(6);
-        document.querySelector("#v4").innerHTML = v4.toFixed(6);
-        document.querySelector("#t2").innerHTML = t2.toFixed(6);
-        document.querySelector("#w").innerHTML = w.toFixed(6);
-        document.querySelector("#nv").innerHTML = nv.toFixed(6);
+        document.querySelector("#pa").innerHTML = pa.toFixed(6)
+        document.querySelector("#ha").innerHTML = ha.toFixed(6)
+        document.querySelector("#a").innerHTML = a.toFixed(6)
+        document.querySelector("#va").innerHTML = va.toFixed(6)
+        document.querySelector("#ma").innerHTML = ma.toFixed(6)
+        document.querySelector("#vth").innerHTML = vth.toFixed(6)
+        document.querySelector("#nv").innerHTML = nv.toFixed(6)
+
       }
 
       function clear() {
-        document.querySelector("#v1").innerHTML = "";
-        document.querySelector("#vs").innerHTML = "";
-        document.querySelector("#v3").innerHTML = "";
-        document.querySelector("#v4").innerHTML = "";
-        document.querySelector("#t2").innerHTML = "";
-        document.querySelector("#w").innerHTML = "";
-        document.querySelector("#nv").innerHTML = "";
+        document.querySelector("#pa").innerHTML = ""
+        document.querySelector("#ha").innerHTML = ""
+        document.querySelector("#a").innerHTML = ""
+        document.querySelector("#va").innerHTML = ""
+        document.querySelector("#ma").innerHTML = ""
+        document.querySelector("#vth").innerHTML = ""
+        document.querySelector("#nv").innerHTML = ""
       }
     </script>
   </body>
