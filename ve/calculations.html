@@ -133,7 +133,7 @@
                 <tfoot>
                   <tr>
                     <td colspan="2" class="text-center">
-                      <button class="btn btn-primary" id="btncalc"  onclick="calculate()">
+                      <button class="btn btn-primary" id="btncalc"  onclick="calculate('ve_results')">
                         Calculate
                       </button>
                     </td>
@@ -145,19 +145,36 @@
         </div>
         <div class="col-md-6">
           <div class="container">
-            <div class="p-2 bg-secondary-subtle border">Output</div>
-            <div class="p-3 border">
-                <ul>
-                    <li class="pb-3">Density of air p<sub>a</sub> : <label class="fw-bold" id="pa"></label></li>
-                    <li class="pb-3">Air ahead causing the flow of air h<sub>a</sub> : <label class="fw-bold" id="ha"></label></li>
-                    <li class="pb-3">Area of orifice a : <label class="fw-bold" id="a"></label></li>
-                    <li class="pb-3">Actual volume of free air delivered V<sub>a</sub> : <label class="fw-bold" id="va"></label></li>
-                    <li class="pb-3">mass of air supplied m<sub>a</sub> : <label class="fw-bold" id="ma"></label></li>
-                    <li class="pb-3">Theoretical volume of air delivered  V<sub>TH</sub> : <label class="fw-bold" id="vth"></label></li>
-                    <li class="pb-3">Total Volumetric efficiency n<sub>v</sub> : <label class="fw-bold" id="nv"></label></li>
-                </ul>
+            <div class="row border">
+              <div class="p-2 bg-secondary-subtle border">Output</div>
+              <div class="col-12">
+                <div class="p-3 ">
+                    <ul>
+                        <li class="pb-3">Density of air p<sub>a</sub> : <label class="fw-bold" id="pa"></label></li>
+                        <li class="pb-3">Air ahead causing the flow of air h<sub>a</sub> : <label class="fw-bold" id="ha"></label></li>
+                        <li class="pb-3">Area of orifice a : <label class="fw-bold" id="a"></label></li>
+                        <li class="pb-3">Actual volume of free air delivered V<sub>a</sub> : <label class="fw-bold" id="va"></label></li>
+                        <li class="pb-3">mass of air supplied m<sub>a</sub> : <label class="fw-bold" id="ma"></label></li>
+                        <li class="pb-3">Theoretical volume of air delivered  V<sub>TH</sub> : <label class="fw-bold" id="vth"></label></li>
+                        <li class="pb-3">Total Volumetric efficiency n<sub>v</sub> : <label class="fw-bold" id="nv"></label></li>
+                    </ul>
+                </div>
+              </div>
+              <div class="col-12 ">
+                <p><span  class="fw-bold">Previous Outpus</span> (click to remove)</p>
+                <div id="results">
+                </div>
+                <div class="d-grid pb-2 pt-2">
+                  <button class="btn btn-link" type="button" onclick="generateGraph('ve_results')">Generate Graph</button>
+                </div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 p-5">
+          <canvas id="graph"></canvas>
         </div>
       </div>
     </main>
@@ -174,6 +191,8 @@
             document.querySelector("#l1").value = constants.l1;
             document.querySelector("#n").value = constants.n;
             document.querySelector("#cd").value = constants.cd;
+
+            loadResult("ve_results", "results", "nv")
         })();
 
 
@@ -220,7 +239,7 @@
             let vlp = (Math.PI / 4) * Math.pow(dlp,2) * l1 * Math.pow(10,-9)
             let vth = (vlp * n) / 60
             let nv = (va / vth) * 100
-
+            
             document.querySelector("#pa").innerHTML = pa.toFixed(6)
             document.querySelector("#ha").innerHTML = ha.toFixed(6)
             document.querySelector("#a").innerHTML = a.toFixed(6)
@@ -228,8 +247,10 @@
             document.querySelector("#ma").innerHTML = ma.toFixed(6)
             document.querySelector("#vth").innerHTML = vth.toFixed(6)
             document.querySelector("#nv").innerHTML = nv.toFixed(6)
-        }
 
+            saveResults("ve_results",{pa,ha,a,va,ma,vlp,vth,nv,pressure:p3})
+            loadResult("ve_results", "results", "nv")
+        }
 
         function clear(){
             document.querySelector("#pa").innerHTML = ""
@@ -240,7 +261,8 @@
             document.querySelector("#vth").innerHTML = ""
             document.querySelector("#nv").innerHTML = ""
         }
-
+       
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
   </body>
 </html>
